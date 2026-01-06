@@ -23,8 +23,12 @@
                         japanese: '#ef4444',
                         us: '#3b82f6',
                         european: '#10b981',
+                        korean: '#ec4899',
+                        other: '#64748b',
                         ev: '#f59e0b',
-                        battery: '#8b5cf6'
+                        battery: '#8b5cf6',
+                        tier1: '#f97316',
+                        oem: '#0ea5e9'
                     },
                     backdropBlur: {
                         xs: '2px',
@@ -203,32 +207,41 @@
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Stats Dashboard -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-            <div class="glass-panel p-6 rounded-2xl shadow-sm border border-slate-200">
-                <p class="text-sm font-medium text-slate-500">総拠点数</p>
-                <div class="flex items-end gap-2 mt-1">
-                    <h3 id="stat-total" class="text-3xl font-bold">0</h3>
-                    <span class="text-slate-400 mb-1 text-sm">locations</span>
+        <div class="grid grid-cols-2 md:grid-cols-6 gap-4 mb-8">
+            <div class="glass-panel p-4 rounded-xl shadow-sm border border-slate-200">
+                <p class="text-xs font-medium text-slate-500">総拠点数</p>
+                <div class="flex items-end gap-1 mt-1">
+                    <h3 id="stat-total" class="text-2xl font-bold">0</h3>
                 </div>
             </div>
-            <div class="glass-panel p-6 rounded-2xl shadow-sm border border-slate-200">
-                <p class="text-sm font-medium text-slate-500">日系メーカー</p>
-                <div class="flex items-end gap-2 mt-1 text-japanese">
-                    <h3 id="stat-japanese" class="text-3xl font-bold">0</h3>
-                    <i data-lucide="trending-up" class="w-4 h-4 mb-2"></i>
+            <div class="glass-panel p-4 rounded-xl shadow-sm border border-slate-200">
+                <p class="text-xs font-medium text-slate-500">日系</p>
+                <div class="flex items-end gap-1 mt-1 text-japanese">
+                    <h3 id="stat-japanese" class="text-2xl font-bold">0</h3>
                 </div>
             </div>
-            <div class="glass-panel p-6 rounded-2xl shadow-sm border border-slate-200">
-                <p class="text-sm font-medium text-slate-500">EV/バッテリー系</p>
-                <div class="flex items-end gap-2 mt-1 text-ev">
-                    <h3 id="stat-ev" class="text-3xl font-bold">0</h3>
-                    <span class="text-slate-400 mb-1 text-sm">sites</span>
+            <div class="glass-panel p-4 rounded-xl shadow-sm border border-slate-200">
+                <p class="text-xs font-medium text-slate-500">米国系</p>
+                <div class="flex items-end gap-1 mt-1 text-us">
+                    <h3 id="stat-us" class="text-2xl font-bold">0</h3>
                 </div>
             </div>
-            <div class="glass-panel p-6 rounded-2xl shadow-sm border border-slate-200">
-                <p class="text-sm font-medium text-slate-500">主要生産州</p>
-                <div class="flex items-end gap-2 mt-1 text-primary-600">
-                    <h3 id="stat-state" class="text-xl font-bold pt-2">KY, MI, TN</h3>
+            <div class="glass-panel p-4 rounded-xl shadow-sm border border-slate-200">
+                <p class="text-xs font-medium text-slate-500">欧州系</p>
+                <div class="flex items-end gap-1 mt-1 text-european">
+                    <h3 id="stat-european" class="text-2xl font-bold">0</h3>
+                </div>
+            </div>
+            <div class="glass-panel p-4 rounded-xl shadow-sm border border-slate-200">
+                <p class="text-xs font-medium text-slate-500">アジアその他</p>
+                <div class="flex items-end gap-1 mt-1 text-korean">
+                    <h3 id="stat-asian" class="text-2xl font-bold">0</h3>
+                </div>
+            </div>
+            <div class="glass-panel p-4 rounded-xl shadow-sm border border-slate-200">
+                <p class="text-xs font-medium text-slate-500">部品メーカー</p>
+                <div class="flex items-end gap-1 mt-1 text-tier1">
+                    <h3 id="stat-tier1" class="text-2xl font-bold">0</h3>
                 </div>
             </div>
         </div>
@@ -253,18 +266,30 @@
                 </div>
                 <select id="filter-category" class="px-4 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white text-sm">
                     <option value="all">全カテゴリー</option>
-                    <option value="japanese">日系メーカー</option>
-                    <option value="us">米国メーカー</option>
-                    <option value="european">欧州メーカー</option>
-                    <option value="ev">EVメーカー</option>
-                    <option value="battery">バッテリーメーカー</option>
+                    <option value="oem">完成車メーカー(OEM)</option>
+                    <option value="tier1">部品メーカー(Tier1)</option>
+                </select>
+                <select id="filter-origin" class="px-4 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white text-sm">
+                    <option value="all">全地域</option>
+                    <option value="japanese">日系</option>
+                    <option value="us">米国系</option>
+                    <option value="european">欧州系</option>
+                    <option value="korean">韓国系</option>
+                    <option value="other">その他</option>
                 </select>
                 <select id="filter-process" class="px-4 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white text-sm">
                     <option value="all">全工程</option>
-                    <option value="assembly">組立</option>
-                    <option value="battery-mfg">バッテリー製造</option>
-                    <option value="components">部品製造</option>
+                    <option value="assembly">完成車組立</option>
+                    <option value="stamping">プレス/成形</option>
                     <option value="powertrain">パワートレイン</option>
+                    <option value="electronics">電子部品</option>
+                    <option value="interior">内装</option>
+                    <option value="exterior">外装</option>
+                    <option value="chassis">シャーシ</option>
+                    <option value="seat">シート</option>
+                    <option value="battery">バッテリー</option>
+                    <option value="tire">タイヤ/ゴム</option>
+                    <option value="glass">ガラス</option>
                 </select>
             </div>
         </div>
@@ -274,12 +299,19 @@
             <div class="glass-panel p-2 rounded-2xl shadow-xl border border-slate-200 relative overflow-hidden">
                 <div id="map"></div>
                 <!-- Legend -->
-                <div class="absolute bottom-6 right-6 z-[1000] glass-panel p-3 rounded-lg text-xs font-semibold flex flex-col gap-2 shadow-lg border border-slate-200">
-                    <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-japanese"></span>日系</div>
-                    <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-us"></span>米国</div>
-                    <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-european"></span>欧州</div>
-                    <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-ev"></span>EV</div>
-                    <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-battery"></span>電池</div>
+                <div class="absolute bottom-6 right-6 z-[1000] glass-panel p-3 rounded-lg text-xs font-semibold shadow-lg border border-slate-200">
+                    <div class="text-[10px] text-slate-400 uppercase tracking-wider mb-2 border-b pb-1">地域別</div>
+                    <div class="flex flex-col gap-1.5 mb-3">
+                        <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-japanese"></span>日系</div>
+                        <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-us"></span>米国系</div>
+                        <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-european"></span>欧州系</div>
+                        <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-korean"></span>韓国/その他</div>
+                    </div>
+                    <div class="text-[10px] text-slate-400 uppercase tracking-wider mb-2 border-b pb-1">業態別</div>
+                    <div class="flex flex-col gap-1.5">
+                        <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-oem"></span>完成車(OEM)</div>
+                        <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-tier1"></span>部品メーカー</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -290,12 +322,11 @@
                     <table class="w-full text-left border-collapse">
                         <thead>
                             <tr class="bg-slate-50 border-b border-slate-200">
-                                <th class="px-6 py-4 text-sm font-bold text-slate-500 uppercase tracking-wider cursor-pointer hover:bg-slate-100" onclick="sortTable('name')">メーカー/拠点 <i data-lucide="list-filter" class="inline w-3 h-3"></i></th>
-                                <th class="px-6 py-4 text-sm font-bold text-slate-500 uppercase tracking-wider cursor-pointer hover:bg-slate-100" onclick="sortTable('location')">所在地 <i data-lucide="list-filter" class="inline w-3 h-3"></i></th>
-                                <th class="px-6 py-4 text-sm font-bold text-slate-500 uppercase tracking-wider cursor-pointer hover:bg-slate-100" onclick="sortTable('product')">生産品目</th>
-                                <th class="px-6 py-4 text-sm font-bold text-slate-500 uppercase tracking-wider cursor-pointer hover:bg-slate-100" onclick="sortTable('capacity')">生産能力</th>
-                                <th class="px-6 py-4 text-sm font-bold text-slate-500 uppercase tracking-wider">カテゴリー</th>
-                                <th class="px-6 py-4 text-sm font-bold text-slate-500 uppercase tracking-wider">工程</th>
+                                <th class="px-4 py-3 text-sm font-bold text-slate-500 uppercase tracking-wider cursor-pointer hover:bg-slate-100" onclick="sortTable('name')">メーカー/拠点 <i data-lucide="list-filter" class="inline w-3 h-3"></i></th>
+                                <th class="px-4 py-3 text-sm font-bold text-slate-500 uppercase tracking-wider cursor-pointer hover:bg-slate-100" onclick="sortTable('location')">所在地</th>
+                                <th class="px-4 py-3 text-sm font-bold text-slate-500 uppercase tracking-wider">製品タイプ</th>
+                                <th class="px-4 py-3 text-sm font-bold text-slate-500 uppercase tracking-wider">地域</th>
+                                <th class="px-4 py-3 text-sm font-bold text-slate-500 uppercase tracking-wider">業態</th>
                             </tr>
                         </thead>
                         <tbody id="table-body">
@@ -328,21 +359,86 @@
     <script>
         // Data Initialization
         const factoryData = [
-            { id: 1, name: "Toyota Motor Manufacturing Kentucky", city: "Georgetown", state: "KY", lat: 38.2091, lng: -84.5531, product: "Camry, RAV4 Hybrid", capacity: "550,000台/年", area: "1,300エーカー", process: "assembly", category: "japanese", details: "トヨタ米国内最大の生産拠点。プレスから組立まで一貫生産。" },
-            { id: 2, name: "Honda Development & Mfg of America", city: "Marysville", state: "OH", lat: 40.2364, lng: -83.3672, product: "Accord, CR-V", capacity: "440,000台/年", area: "400万平方フィート", process: "assembly", category: "japanese", details: "北米ホンダの主要生産拠点。EV生産への移行準備中。" },
-            { id: 3, name: "Nissan North America Smyrna Plant", city: "S Smyrna", state: "TN", lat: 35.9818, lng: -86.5186, product: "Leaf, Rogue, Pathfinder", capacity: "640,000台/年", area: "600万平方フィート", process: "assembly", category: "japanese", details: "量産EV「リーフ」をいち早く北米で生産開始した拠点。" },
-            { id: 4, name: "DENSO Manufacturing Tennessee", city: "Maryville", state: "TN", lat: 35.7564, lng: -83.9705, product: "スターター, オルタネーター", capacity: "数百万個/年", area: "150万平方フィート", process: "components", category: "japanese", details: "トヨタ等のTier1サプライヤー。電子製品、車両制御システムを生産。" },
-            { id: 5, name: "GM Factory ZERO", city: "Detroit", state: "MI", lat: 42.3413, lng: -83.0560, product: "Hummer EV, Silverado EV", capacity: "200,000台/年", area: "410万平方フィート", process: "assembly", category: "us", details: "GMのEV専用生産拠点。旧デトロイト・ハムトラムク工場を刷新。" },
-            { id: 6, name: "Ford Rouge Electric Vehicle Center", city: "Dearborn", state: "MI", lat: 42.3023, lng: -83.1557, product: "F-150 Lightning", capacity: "150,000台/年", area: "歴史的拠点内", process: "assembly", category: "us", details: "フォードの主力EVピックアップ生産の象徴的な拠点。" },
-            { id: 7, name: "Tesla Giga Texas", city: "Austin", state: "TX", lat: 30.2305, lng: -97.6171, product: "Model Y, Cybertruck", capacity: "500,000台/年", area: "2,500エーカー", process: "assembly", category: "ev", details: "テスラの最新本社兼生産拠点。ダイキャスト「ギガプレス」を導入。" },
-            { id: 8, name: "Tesla Factory Fremont", city: "Fremont", state: "CA", lat: 37.4924, lng: -121.9442, product: "Model 3, S, X, Y", capacity: "600,000台/年", area: "370エーカー", process: "assembly", category: "ev", details: "旧NUMMI(GM/Toyota合弁)跡地。テスラ初の量産拠点。" },
-            { id: 9, name: "Rivian Normal Plant", city: "Normal", state: "IL", lat: 40.5135, lng: -89.0494, product: "R1T, R1S, EDV", capacity: "150,000台/年", area: "330万平方フィート", process: "assembly", category: "ev", details: "新興EVメーカーの拠点。三菱自動車の旧工場を活用。" },
-            { id: 10, name: "BMW Plant Spartanburg", city: "Greer", state: "SC", lat: 34.8924, lng: -82.2189, product: "X3, X4, X5, X6, X7", capacity: "450,000台/年", area: "1,150エーカー", process: "assembly", category: "european", details: "BMWグループ最大の世界生産拠点。輸出比率が高い。" },
-            { id: 11, name: "Volvo Cars Ridgeville", city: "Ridgeville", state: "SC", lat: 33.1542, lng: -80.3164, product: "S60, EX90", capacity: "150,000台/年", area: "1,600エーカー", process: "assembly", category: "european", details: "ボルボ初のアメリカ工場。完全EV化へ向けて投資中。" },
-            { id: 12, name: "LG Energy Solution Michigan", city: "Holland", state: "MI", lat: 42.7592, lng: -86.1044, product: "Li-ion Battery Cell", capacity: "20GWh/年", area: "100万平方フィート", process: "battery-mfg", category: "battery", details: "大手バッテリーメーカー。GM等のEV向けにセルを供給。" },
-            { id: 13, name: "Panasonic Energy Kansas", city: "De Soto", state: "KS", lat: 38.9722, lng: -94.9754, product: "4680/2170 Cell", capacity: "30GWh/年", area: "建設中", process: "battery-mfg", category: "battery", details: "テスラ向け等のバッテリー生産拠点を新設中。" },
-            { id: 14, name: "BlueOval SK Battery Park", city: "Glendale", state: "KY", lat: 37.6015, lng: -85.9189, product: "EV Battery", capacity: "86GWh/年", area: "新規開発", process: "battery-mfg", category: "battery", details: "FordとSK Onの合弁。全米最大級の電池生産地帯を形成。" },
-            { id: 15, name: "Hyundai Motor Group Metaplant America", city: "Ellabell", state: "GA", lat: 32.1265, lng: -81.4429, product: "IONIQ 5, EV9", capacity: "300,000台/年", area: "2,900エーカー", process: "assembly", category: "ev", details: "現代自のEV専用大規模工場。2025年稼働予定。" }
+            // === OEM (完成車メーカー) ===
+            // 日系OEM
+            { id: 1, name: "Toyota Motor Manufacturing Kentucky", city: "Georgetown", state: "KY", lat: 38.2091, lng: -84.5531, product: "Camry, RAV4 Hybrid", capacity: "550,000台/年", process: "assembly", processLabel: "完成車組立", origin: "japanese", originLabel: "日系", type: "oem", typeLabel: "完成車メーカー", details: "トヨタ米国内最大の生産拠点。プレスから組立まで一貫生産。" },
+            { id: 2, name: "Honda Development & Mfg of America", city: "Marysville", state: "OH", lat: 40.2364, lng: -83.3672, product: "Accord, CR-V", capacity: "440,000台/年", process: "assembly", processLabel: "完成車組立", origin: "japanese", originLabel: "日系", type: "oem", typeLabel: "完成車メーカー", details: "北米ホンダの主要生産拠点。EV生産への移行準備中。" },
+            { id: 3, name: "Nissan North America Smyrna Plant", city: "Smyrna", state: "TN", lat: 35.9818, lng: -86.5186, product: "Leaf, Rogue, Pathfinder", capacity: "640,000台/年", process: "assembly", processLabel: "完成車組立", origin: "japanese", originLabel: "日系", type: "oem", typeLabel: "完成車メーカー", details: "量産EV「リーフ」をいち早く北米で生産開始した拠点。" },
+            { id: 4, name: "Toyota Motor Manufacturing Texas", city: "San Antonio", state: "TX", lat: 29.4272, lng: -98.4935, product: "Tundra, Sequoia", capacity: "200,000台/年", process: "assembly", processLabel: "完成車組立", origin: "japanese", originLabel: "日系", type: "oem", typeLabel: "完成車メーカー", details: "トヨタのピックアップ専用工場。フルサイズトラックを生産。" },
+            { id: 5, name: "Subaru of Indiana Automotive", city: "Lafayette", state: "IN", lat: 40.3919, lng: -86.8739, product: "Outback, Legacy, Ascent", capacity: "370,000台/年", process: "assembly", processLabel: "完成車組立", origin: "japanese", originLabel: "日系", type: "oem", typeLabel: "完成車メーカー", details: "スバル唯一の海外完成車組立工場。" },
+            { id: 6, name: "Mazda Toyota Manufacturing USA", city: "Huntsville", state: "AL", lat: 34.6966, lng: -86.6667, product: "CX-50, CX-70, Corolla Cross", capacity: "300,000台/年", process: "assembly", processLabel: "完成車組立", origin: "japanese", originLabel: "日系", type: "oem", typeLabel: "完成車メーカー", details: "マツダとトヨタの合弁工場。" },
+            { id: 7, name: "Mitsubishi Motors North America", city: "Normal", state: "IL", lat: 40.5135, lng: -89.0494, product: "Outlander", capacity: "90,000台/年", process: "assembly", processLabel: "完成車組立", origin: "japanese", originLabel: "日系", type: "oem", typeLabel: "完成車メーカー", details: "三菱自動車の北米唯一の製造拠点。" },
+
+            // 米国系OEM
+            { id: 8, name: "GM Factory ZERO", city: "Detroit", state: "MI", lat: 42.3413, lng: -83.0560, product: "Hummer EV, Silverado EV", capacity: "200,000台/年", process: "assembly", processLabel: "完成車組立", origin: "us", originLabel: "米国系", type: "oem", typeLabel: "完成車メーカー", details: "GMのEV専用生産拠点。旧デトロイト・ハムトラムク工場を刷新。" },
+            { id: 9, name: "Ford Rouge Electric Vehicle Center", city: "Dearborn", state: "MI", lat: 42.3023, lng: -83.1557, product: "F-150 Lightning", capacity: "150,000台/年", process: "assembly", processLabel: "完成車組立", origin: "us", originLabel: "米国系", type: "oem", typeLabel: "完成車メーカー", details: "フォードの主力EVピックアップ生産の象徴的な拠点。" },
+            { id: 10, name: "Ford Kentucky Truck Plant", city: "Louisville", state: "KY", lat: 38.1647, lng: -85.8565, product: "F-150, Expedition, Lincoln Navigator", capacity: "480,000台/年", process: "assembly", processLabel: "完成車組立", origin: "us", originLabel: "米国系", type: "oem", typeLabel: "完成車メーカー", details: "フォード最大のトラック生産拠点。" },
+            { id: 11, name: "Stellantis Jeep Assembly", city: "Detroit", state: "MI", lat: 42.3314, lng: -83.0458, product: "Jeep Grand Cherokee, Dodge Durango", capacity: "350,000台/年", process: "assembly", processLabel: "完成車組立", origin: "us", originLabel: "米国系", type: "oem", typeLabel: "完成車メーカー", details: "ステランティスのジープ・トラック工場。" },
+
+            // 欧州系OEM
+            { id: 12, name: "BMW Plant Spartanburg", city: "Greer", state: "SC", lat: 34.8924, lng: -82.2189, product: "X3, X4, X5, X6, X7", capacity: "450,000台/年", process: "assembly", processLabel: "完成車組立", origin: "european", originLabel: "欧州系", type: "oem", typeLabel: "完成車メーカー", details: "BMWグループ最大の世界生産拠点。輸出比率が高い。" },
+            { id: 13, name: "Mercedes-Benz Tuscaloosa", city: "Tuscaloosa", state: "AL", lat: 33.2018, lng: -87.6904, product: "GLE, GLE Coupe, GLS", capacity: "300,000台/年", process: "assembly", processLabel: "完成車組立", origin: "european", originLabel: "欧州系", type: "oem", typeLabel: "完成車メーカー", details: "メルセデス・ベンツのSUV生産拠点。" },
+            { id: 14, name: "Volkswagen Chattanooga", city: "Chattanooga", state: "TN", lat: 35.0623, lng: -85.1654, product: "ID.4, Atlas", capacity: "200,000台/年", process: "assembly", processLabel: "完成車組立", origin: "european", originLabel: "欧州系", type: "oem", typeLabel: "完成車メーカー", details: "VWの北米EV生産拠点。" },
+            { id: 15, name: "Volvo Cars Ridgeville", city: "Ridgeville", state: "SC", lat: 33.1542, lng: -80.3164, product: "S60, EX90", capacity: "150,000台/年", process: "assembly", processLabel: "完成車組立", origin: "european", originLabel: "欧州系", type: "oem", typeLabel: "完成車メーカー", details: "ボルボ初のアメリカ工場。完全EV化へ向けて投資中。" },
+
+            // 韓国系OEM
+            { id: 16, name: "Hyundai Motor Manufacturing Alabama", city: "Montgomery", state: "AL", lat: 32.3091, lng: -86.3940, product: "Elantra, Santa Fe, Tucson", capacity: "400,000台/年", process: "assembly", processLabel: "完成車組立", origin: "korean", originLabel: "韓国系", type: "oem", typeLabel: "完成車メーカー", details: "現代自動車の北米拠点。" },
+            { id: 17, name: "Kia Motors Manufacturing Georgia", city: "West Point", state: "GA", lat: 32.8754, lng: -85.1820, product: "Telluride, Sorento, Sportage", capacity: "360,000台/年", process: "assembly", processLabel: "完成車組立", origin: "korean", originLabel: "韓国系", type: "oem", typeLabel: "完成車メーカー", details: "起亜自動車の初の北米工場。" },
+            { id: 18, name: "Hyundai Motor Group Metaplant America", city: "Ellabell", state: "GA", lat: 32.1265, lng: -81.4429, product: "IONIQ 5, EV9", capacity: "300,000台/年", process: "assembly", processLabel: "完成車組立", origin: "korean", originLabel: "韓国系", type: "oem", typeLabel: "完成車メーカー", details: "現代自のEV専用大規模工場。2025年稼働予定。" },
+
+            // EVメーカー（その他）
+            { id: 19, name: "Tesla Giga Texas", city: "Austin", state: "TX", lat: 30.2305, lng: -97.6171, product: "Model Y, Cybertruck", capacity: "500,000台/年", process: "assembly", processLabel: "完成車組立", origin: "other", originLabel: "その他", type: "oem", typeLabel: "完成車メーカー", details: "テスラの最新本社兼生産拠点。ダイキャスト「ギガプレス」を導入。" },
+            { id: 20, name: "Tesla Factory Fremont", city: "Fremont", state: "CA", lat: 37.4924, lng: -121.9442, product: "Model 3, S, X, Y", capacity: "600,000台/年", process: "assembly", processLabel: "完成車組立", origin: "other", originLabel: "その他", type: "oem", typeLabel: "完成車メーカー", details: "旧NUMMI(GM/Toyota合弁)跡地。テスラ初の量産拠点。" },
+            { id: 21, name: "Rivian Normal Plant", city: "Normal", state: "IL", lat: 40.5135, lng: -89.0494, product: "R1T, R1S, EDV", capacity: "150,000台/年", process: "assembly", processLabel: "完成車組立", origin: "other", originLabel: "その他", type: "oem", typeLabel: "完成車メーカー", details: "新興EVメーカーの拠点。" },
+            { id: 22, name: "Lucid Motors Casa Grande", city: "Casa Grande", state: "AZ", lat: 32.8770, lng: -111.7570, product: "Lucid Air", capacity: "90,000台/年", process: "assembly", processLabel: "完成車組立", origin: "other", originLabel: "その他", type: "oem", typeLabel: "完成車メーカー", details: "高級EVメーカーの生産拠点。" },
+
+            // === バッテリーメーカー ===
+            { id: 23, name: "LG Energy Solution Michigan", city: "Holland", state: "MI", lat: 42.7592, lng: -86.1044, product: "Li-ion Battery Cell", capacity: "20GWh/年", process: "battery", processLabel: "バッテリー", origin: "korean", originLabel: "韓国系", type: "tier1", typeLabel: "部品メーカー", details: "LGESの米国拠点。GM等のEV向けにセルを供給。" },
+            { id: 24, name: "Panasonic Energy Kansas", city: "De Soto", state: "KS", lat: 38.9722, lng: -94.9754, product: "4680/2170 Cell", capacity: "30GWh/年", process: "battery", processLabel: "バッテリー", origin: "other", originLabel: "その他", type: "tier1", typeLabel: "部品メーカー", details: "テスラ向け等のバッテリー生産拠点を新設中。" },
+            { id: 25, name: "BlueOval SK Battery Park", city: "Glendale", state: "KY", lat: 37.6015, lng: -85.9189, product: "EV Battery", capacity: "86GWh/年", process: "battery", processLabel: "バッテリー", origin: "korean", originLabel: "韓国系", type: "tier1", typeLabel: "部品メーカー", details: "FordとSK Onの合弁。全米最大級の電池生産地帯を形成。" },
+            { id: 26, name: "SK On Battery Georgia", city: "Commerce", state: "GA", lat: 34.1990, lng: -83.4580, product: "EV Battery Cells", capacity: "23GWh/年", process: "battery", processLabel: "バッテリー", origin: "korean", originLabel: "韓国系", type: "tier1", typeLabel: "部品メーカー", details: "SK Onの北米最初のバッテリー工場。" },
+            { id: 27, name: "Samsung SDI Michigan", city: "Auburn Hills", state: "MI", lat: 42.6562, lng: -83.2410, product: "Battery Cells", capacity: "拡張中", process: "battery", processLabel: "バッテリー", origin: "korean", originLabel: "韓国系", type: "tier1", typeLabel: "部品メーカー", details: "サムスンSDIのバッテリー生産拠点。" },
+
+            // === 日系部品メーカー (Tier1) ===
+            { id: 28, name: "DENSO Manufacturing Tennessee", city: "Maryville", state: "TN", lat: 35.7564, lng: -83.9705, product: "スターター, オルタネーター, ECU", capacity: "数百万個/年", process: "electronics", processLabel: "電子部品", origin: "japanese", originLabel: "日系", type: "tier1", typeLabel: "部品メーカー", details: "トヨタ系最大級の部品メーカー。車載電子機器を生産。" },
+            { id: 29, name: "Aisin Manufacturing Kentucky", city: "Burnside", state: "KY", lat: 36.9815, lng: -84.6010, product: "自動変速機, ドアモジュール", capacity: "数十万台分/年", process: "powertrain", processLabel: "パワートレイン", origin: "japanese", originLabel: "日系", type: "tier1", typeLabel: "部品メーカー", details: "アイシンの変速機生産拠点。トヨタグループ主要サプライヤー。" },
+            { id: 30, name: "JTEKT Manufacturing North Carolina", city: "Silk Hope", state: "NC", lat: 36.0061, lng: -79.5851, product: "ステアリングシステム, ドライブシャフト", capacity: "数百万個/年", process: "chassis", processLabel: "シャーシ", origin: "japanese", originLabel: "日系", type: "tier1", typeLabel: "部品メーカー", details: "ジェイテクトの北米拠点。操舵系コンポーネントを生産。" },
+            { id: 31, name: "Calsonic Kansei North America", city: "Lewisburg", state: "TN", lat: 35.5117, lng: -86.9645, product: "HVAC, ラジエーター", capacity: "数百万台分/年", process: "interior", processLabel: "内装", origin: "japanese", originLabel: "日系", type: "tier1", typeLabel: "部品メーカー", details: "カルソニックカンセイの暖冷房システム生産拠点。" },
+            { id: 32, name: "Yokohama Tire Virginia", city: "Salem", state: "VA", lat: 37.2955, lng: -80.0561, product: "乗用車タイヤ", capacity: "数百万本/年", process: "tire", processLabel: "タイヤ/ゴム", origin: "japanese", originLabel: "日系", type: "tier1", typeLabel: "部品メーカー", details: "ヨコハマゴムの北米唯一のタイヤ製造拠点。" },
+            { id: 33, name: "Bridgestone Americas Tennessee", city: "Morrison", state: "TN", lat: 35.6075, lng: -85.8506, product: "乗用車・トラックタイヤ", capacity: "数百万本/年", process: "tire", processLabel: "タイヤ/ゴム", origin: "japanese", originLabel: "日系", type: "tier1", typeLabel: "部品メーカー", details: "ブリヂストンの米国本拠地。大型トラックタイヤも生産。" },
+            { id: 34, name: "Sumitomo Electric West Virginia", city: "Putnam", state: "WV", lat: 38.4158, lng: -81.8868, product: "ワイヤーハーネス", capacity: "数百万セット/年", process: "electronics", processLabel: "電子部品", origin: "japanese", originLabel: "日系", type: "tier1", typeLabel: "部品メーカー", details: "住友電工のハーネス生産拠点。日系完成車メーカーへ供給。" },
+            { id: 35, name: "NSK America Indiana", city: "Franklin", state: "IN", lat: 39.4867, lng: -86.0544, product: "ベアリング", capacity: "数百万個/年", process: "chassis", processLabel: "シャーシ", origin: "japanese", originLabel: "日系", type: "tier1", typeLabel: "部品メーカー", details: "日本精工のベアリング製造拠点。" },
+            { id: 36, name: "Toyota Boshoku Alabama", city: "Huntsville", state: "AL", lat: 34.6872, lng: -86.5644, product: "シート, インテリアトリム", capacity: "数百万台分/年", process: "seat", processLabel: "シート", origin: "japanese", originLabel: "日系", type: "tier1", typeLabel: "部品メーカー", details: "トヨタ紡織の内装部品生産拠点。" },
+            { id: 37, name: "Koito Manufacturing Virginia", city: "Sterling", state: "VA", lat: 38.9956, lng: -77.4597, product: "ヘッドランプ, テールランプ", capacity: "数百万個/年", process: "exterior", processLabel: "外装", origin: "japanese", originLabel: "日系", type: "tier1", typeLabel: "部品メーカー", details: "小糸製作所の灯火器生産拠点。" },
+            { id: 38, name: "NSG Pilkington Ohio", city: "Rossford", state: "OH", lat: 41.6166, lng: -83.5643, product: "自動車ガラス", capacity: "数百万枚/年", process: "glass", processLabel: "ガラス", origin: "japanese", originLabel: "日系", type: "tier1", typeLabel: "部品メーカー", details: "日本板硝子の北米ガラス製造拠点。" },
+            { id: 39, name: "Toyota Gosei Kentucky", city: "Bowling Green", state: "KY", lat: 36.9955, lng: -86.4447, product: "ゴムシール, ホース", capacity: "数百万個/年", process: "exterior", processLabel: "外装", origin: "japanese", originLabel: "日系", type: "tier1", typeLabel: "部品メーカー", details: "トヨタ合成のゴム・樹脂部品生産拠点。" },
+            { id: 40, name: "Alps Alpine Michigan", city: "Auburn Hills", state: "MI", lat: 42.6562, lng: -83.2410, product: "電子機器, ナビゲーション", capacity: "数百万台分/年", process: "electronics", processLabel: "電子部品", origin: "japanese", originLabel: "日系", type: "tier1", typeLabel: "部品メーカー", details: "アルプスアルパインの車載電子機器生産拠点。" },
+
+            // === 米国系部品メーカー (Tier1) ===
+            { id: 41, name: "Magna International Tennessee", city: "Spring Hill", state: "TN", lat: 35.7360, lng: -86.9051, product: "シート, フレーム", capacity: "数百万台分/年", process: "seat", processLabel: "シート", origin: "us", originLabel: "米国系", type: "tier1", typeLabel: "部品メーカー", details: "マグナの北米主要拠点。シートとボディ部品を生産。" },
+            { id: 42, name: "Dana Incorporated Kentucky", city: "Florence", state: "KY", lat: 38.9936, lng: -84.6181, product: "プロペラシャフト", capacity: "数百万個/年", process: "powertrain", processLabel: "パワートレイン", origin: "us", originLabel: "米国系", type: "tier1", typeLabel: "部品メーカー", details: "デイナのドライブトレインコンポーネント生産拠点。" },
+            { id: 43, name: "BorgWarner Michigan", city: "Auburn Hills", state: "MI", lat: 42.6562, lng: -83.2410, product: "ターボチャージャー, トランスミッション", capacity: "数百万個/年", process: "powertrain", processLabel: "パワートレイン", origin: "us", originLabel: "米国系", type: "tier1", typeLabel: "部品メーカー", details: "ボーグワーナーのパワートレイン部品生産拠点。" },
+            { id: 44, name: "Visteon Michigan", city: "Van Buren Township", state: "MI", lat: 42.2019, lng: -83.4847, product: "電子機器, クラスター", capacity: "数百万個/年", process: "electronics", processLabel: "電子部品", origin: "us", originLabel: "米国系", type: "tier1", typeLabel: "部品メーカー", details: "バイストロンの車載電子機器生産拠点。" },
+            { id: 45, name: "American Axle Michigan", city: "Detroit", state: "MI", lat: 42.3314, lng: -83.0458, product: "ドライブシャフト", capacity: "数百万個/年", process: "powertrain", processLabel: "パワートレイン", origin: "us", originLabel: "米国系", type: "tier1", typeLabel: "部品メーカー", details: "AAMのドライブトレインシステム生産拠点。" },
+
+            // === 欧州系部品メーカー (Tier1) ===
+            { id: 46, name: "Continental AG South Carolina", city: "Sumter", state: "SC", lat: 33.9216, lng: -80.3437, product: "タイヤ, ブレーキシステム", capacity: "数百万本/年", process: "chassis", processLabel: "シャーシ", origin: "european", originLabel: "欧州系", type: "tier1", typeLabel: "部品メーカー", details: "コンチネンタルの北米タイヤ・ブレーキ生産拠点。" },
+            { id: 47, name: "ZF Group North Carolina", city: "Grey Court", state: "NC", lat: 34.7282, lng: -82.4887, product: "トランスミッション", capacity: "数百万台/年", process: "powertrain", processLabel: "パワートレイン", origin: "european", originLabel: "欧州系", type: "tier1", typeLabel: "部品メーカー", details: "ZFのトランスミッション製造拠点。" },
+            { id: 48, name: "Bosch South Carolina", city: "Charleston", state: "SC", lat: 32.7855, lng: -79.9330, product: "燃料噴射システム, センサー", capacity: "数百万個/年", process: "electronics", processLabel: "電子部品", origin: "european", originLabel: "欧州系", type: "tier1", typeLabel: "部品メーカー", details: "ボッシュの北米主要生産拠点。" },
+            { id: 49, name: "Valeo South Carolina", city: "Charleston", state: "SC", lat: 32.7855, lng: -79.9330, product: "スターター, オルタネーター", capacity: "数百万個/年", process: "electronics", processLabel: "電子部品", origin: "european", originLabel: "欧州系", type: "tier1", typeLabel: "部品メーカー", details: "ヴァレオの電気システム生産拠点。" },
+            { id: 50, name: "Michelin South Carolina", city: "Greenville", state: "SC", lat: 34.8526, lng: -82.3940, product: "乗用車タイヤ", capacity: "数百万本/年", process: "tire", processLabel: "タイヤ/ゴム", origin: "european", originLabel: "欧州系", type: "tier1", typeLabel: "部品メーカー", details: "ミシュランの北米本拠地。" },
+            { id: 51, name: "Faurecia Michigan", city: "Auburn Hills", state: "MI", lat: 42.6562, lng: -83.2410, product: "シート, インテリア", capacity: "数百万台分/年", process: "interior", processLabel: "内装", origin: "european", originLabel: "欧州系", type: "tier1", typeLabel: "部品メーカー", details: "フォシア（Forvia）の内装部品生産拠点。" },
+            { id: 52, name: "Thrustmaster of Tennessee", city: "Lewisburg", state: "TN", lat: 35.5117, lng: -86.9645, product: "冷却システム", capacity: "数百万個/年", process: "chassis", processLabel: "シャーシ", origin: "european", originLabel: "欧州系", type: "tier1", typeLabel: "部品メーカー", details: "ヴァレオの熱管理システム生産拠点。" },
+
+            // === 韓国系部品メーカー (Tier1) ===
+            { id: 53, name: "Hyundai Mobis Alabama", city: "Montgomery", state: "AL", lat: 32.3091, lng: -86.3940, product: "モジュール, コンポーネント", capacity: "数百万台分/年", process: "chassis", processLabel: "シャーシ", origin: "korean", originLabel: "韓国系", type: "tier1", typeLabel: "部品メーカー", details: "ヒュンダイモビスのモジュール組立拠点。" },
+            { id: 54, name: "Hyundai Mobis Georgia", city: "West Point", state: "GA", lat: 32.8754, lng: -85.1820, product: "バンパー, ラジエーター", capacity: "数百万台分/年", process: "exterior", processLabel: "外装", origin: "korean", originLabel: "韓国系", type: "tier1", typeLabel: "部品メーカー", details: "起亜自動車向け部品供給拠点。" },
+            { id: 55, name: "Hankook Tire Tennessee", city: "Clarksville", state: "TN", lat: 36.5678, lng: -87.2856, product: "乗用車タイヤ", capacity: "1,100万本/年", process: "tire", processLabel: "タイヤ/ゴム", origin: "korean", originLabel: "韓国系", type: "tier1", typeLabel: "部品メーカー", details: "ハンコックタイヤの北米初の製造拠点。" },
+            { id: 56, name: "Kumho Tire Georgia", city: "Macon", state: "GA", lat: 32.8395, lng: -83.6424, product: "乗用車タイヤ", capacity: "数百万本/年", process: "tire", processLabel: "タイヤ/ゴム", origin: "korean", originLabel: "韓国系", type: "tier1", typeLabel: "部品メーカー", details: "錦湖タイヤの北米生産拠点。" },
+
+            // === その他部品メーカー ===
+            { id: 57, name: "Goodyear Tire & Rubber Ohio", city: "Akron", state: "OH", lat: 41.0814, lng: -81.5190, product: "乗用車・トラックタイヤ", capacity: "数百万本/年", process: "tire", processLabel: "タイヤ/ゴム", origin: "us", originLabel: "米国系", type: "tier1", typeLabel: "部品メーカー", details: "グッドイヤーの本拠地。各種タイヤを製造。" },
+            { id: 58, name: "Cooper Tire Mississippi", city: "Tupelo", state: "MS", lat: 34.2575, lng: -88.7104, product: "乗用車タイヤ", capacity: "数百万本/年", process: "tire", processLabel: "タイヤ/ゴム", origin: "us", originLabel: "米国系", type: "tier1", typeLabel: "部品メーカー", details: "クーパータイヤの主要製造拠点。" },
         ];
 
         let map;
@@ -368,14 +464,34 @@
             renderMarkers(factoryData);
         }
 
-        function getCategoryColor(category) {
-            switch(category) {
+        function getCategoryColor(origin, type) {
+            // Use origin for color mapping
+            switch(origin) {
                 case 'japanese': return '#ef4444';
                 case 'us': return '#3b82f6';
                 case 'european': return '#10b981';
-                case 'ev': return '#f59e0b';
-                case 'battery': return '#8b5cf6';
+                case 'korean': return '#ec4899';
+                case 'other': return '#64748b';
                 default: return '#64748b';
+            }
+        }
+
+        function getOriginBadgeClass(origin) {
+            switch(origin) {
+                case 'japanese': return 'bg-japanese/10 text-japanese';
+                case 'us': return 'bg-us/10 text-us';
+                case 'european': return 'bg-european/10 text-european';
+                case 'korean': return 'bg-korean/10 text-korean';
+                case 'other': return 'bg-slate-100 text-slate-600';
+                default: return 'bg-slate-100 text-slate-600';
+            }
+        }
+
+        function getTypeBadgeClass(type) {
+            switch(type) {
+                case 'oem': return 'bg-oem/10 text-oem';
+                case 'tier1': return 'bg-tier1/10 text-tier1';
+                default: return 'bg-slate-100 text-slate-600';
             }
         }
 
@@ -385,10 +501,11 @@
             markers = [];
 
             data.forEach(item => {
-                const color = getCategoryColor(item.category);
-                const badgeClass = getCategoryBadgeClass(item.category);
+                const color = getCategoryColor(item.origin, item.type);
+                const originClass = getOriginBadgeClass(item.origin);
+                const typeClass = getTypeBadgeClass(item.type);
 
-                // Custom Icon with larger hover area
+                // Custom Icon
                 const customIcon = L.divIcon({
                     className: 'custom-div-icon',
                     html: `<div style="background-color: ${color}; width: 14px; height: 14px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 10px rgba(0,0,0,0.3);"></div>`,
@@ -404,10 +521,13 @@
                             <h4>${item.name}</h4>
                         </div>
                         <p class="location">${item.city}, ${item.state}</p>
-                        <div class="detail-row"><span>生産:</span> ${item.product}</div>
+                        <div class="detail-row"><span>製品:</span> ${item.product}</div>
                         <div class="detail-row"><span>能力:</span> ${item.capacity}</div>
                         <div class="details">${item.details}</div>
-                        <span class="category-badge ${badgeClass}">${item.category}</span>
+                        <div class="flex gap-1 mt-2">
+                            <span class="category-badge ${originClass}">${item.originLabel}</span>
+                            <span class="category-badge ${typeClass}">${item.typeLabel}</span>
+                        </div>
                     </div>
                 `;
 
@@ -420,8 +540,9 @@
                         </div>
                         <p class="text-xs text-slate-500 mb-2 font-semibold">${item.city}, ${item.state}</p>
                         <div class="space-y-1 text-xs">
-                            <div><span class="text-slate-400">生産:</span> ${item.product}</div>
+                            <div><span class="text-slate-400">製品:</span> ${item.product}</div>
                             <div><span class="text-slate-400">能力:</span> ${item.capacity}</div>
+                            <div><span class="text-slate-400">工程:</span> ${item.processLabel}</div>
                             <div class="mt-2 py-1 border-t text-slate-600 italic">${item.details}</div>
                         </div>
                     </div>
@@ -449,23 +570,27 @@
             data.forEach(item => {
                 const tr = document.createElement('tr');
                 tr.className = 'border-b border-slate-100 hover:bg-slate-50 transition-colors group cursor-pointer';
+                const originClass = getOriginBadgeClass(item.origin);
+                const typeClass = getTypeBadgeClass(item.type);
+
                 tr.innerHTML = `
-                    <td class="px-6 py-4">
-                        <div class="font-bold text-slate-800">${item.name}</div>
-                        <div class="text-[10px] text-slate-400 uppercase tracking-tighter">${item.id.toString().padStart(4, '0')} SKU REF</div>
+                    <td class="px-4 py-3">
+                        <div class="font-bold text-slate-800 text-sm">${item.name}</div>
+                        <div class="text-[10px] text-slate-400 uppercase tracking-tighter">${item.id.toString().padStart(3, '0')} REF</div>
                     </td>
-                    <td class="px-6 py-4 text-sm font-medium text-slate-600">${item.city}, ${item.state}</td>
-                    <td class="px-6 py-4 text-sm text-slate-600">${item.product}</td>
-                    <td class="px-6 py-4 text-sm font-mono text-slate-500">${item.capacity}</td>
-                    <td class="px-6 py-4">
-                        <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${getCategoryBadgeClass(item.category)}">
-                            ${item.category}
+                    <td class="px-4 py-3 text-sm font-medium text-slate-600">${item.city}, ${item.state}</td>
+                    <td class="px-4 py-3">
+                        <div class="text-xs text-slate-700">${item.product}</div>
+                        <div class="text-[10px] text-slate-400">${item.processLabel}</div>
+                    </td>
+                    <td class="px-4 py-3">
+                        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${originClass}">
+                            ${item.originLabel}
                         </span>
                     </td>
-                    <td class="px-6 py-4">
-                        <span class="flex items-center gap-1 text-xs text-slate-500">
-                            <i data-lucide="settings" class="w-3 h-3"></i>
-                            ${item.process}
+                    <td class="px-4 py-3">
+                        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${typeClass}">
+                            ${item.typeLabel}
                         </span>
                     </td>
                 `;
@@ -480,21 +605,13 @@
             lucide.createIcons();
         }
 
-        function getCategoryBadgeClass(category) {
-            switch(category) {
-                case 'japanese': return 'bg-japanese/10 text-japanese';
-                case 'us': return 'bg-us/10 text-us';
-                case 'european': return 'bg-european/10 text-european';
-                case 'ev': return 'bg-ev/10 text-ev';
-                case 'battery': return 'bg-battery/10 text-battery';
-                default: return 'bg-slate-100 text-slate-600';
-            }
-        }
-
         function updateStats(data) {
             document.getElementById('stat-total').innerText = data.length;
-            document.getElementById('stat-japanese').innerText = data.filter(i => i.category === 'japanese').length;
-            document.getElementById('stat-ev').innerText = data.filter(i => i.category === 'ev' || i.category === 'battery').length;
+            document.getElementById('stat-japanese').innerText = data.filter(i => i.origin === 'japanese').length;
+            document.getElementById('stat-us').innerText = data.filter(i => i.origin === 'us').length;
+            document.getElementById('stat-european').innerText = data.filter(i => i.origin === 'european').length;
+            document.getElementById('stat-asian').innerText = data.filter(i => i.origin === 'korean' || i.origin === 'other').length;
+            document.getElementById('stat-tier1').innerText = data.filter(i => i.type === 'tier1').length;
         }
 
         function sortTable(key) {
@@ -547,9 +664,10 @@
             // Filters
             const searchInput = document.getElementById('search-input');
             const filterCategory = document.getElementById('filter-category');
+            const filterOrigin = document.getElementById('filter-origin');
             const filterProcess = document.getElementById('filter-process');
 
-            [searchInput, filterCategory, filterProcess].forEach(el => {
+            [searchInput, filterCategory, filterOrigin, filterProcess].forEach(el => {
                 el.addEventListener('input', () => applyFilters());
             });
 
@@ -560,28 +678,31 @@
         function applyFilters(dataToFilter = null) {
             const search = document.getElementById('search-input').value.toLowerCase();
             const category = document.getElementById('filter-category').value;
+            const origin = document.getElementById('filter-origin').value;
             const process = document.getElementById('filter-process').value;
 
             const filtered = (dataToFilter || factoryData).filter(item => {
-                const matchSearch = item.name.toLowerCase().includes(search) || 
-                                    item.city.toLowerCase().includes(search) || 
+                const matchSearch = item.name.toLowerCase().includes(search) ||
+                                    item.city.toLowerCase().includes(search) ||
                                     item.state.toLowerCase().includes(search) ||
-                                    item.product.toLowerCase().includes(search);
-                const matchCategory = category === 'all' || item.category === category;
+                                    item.product.toLowerCase().includes(search) ||
+                                    item.processLabel.toLowerCase().includes(search);
+                const matchCategory = category === 'all' || item.type === category;
+                const matchOrigin = origin === 'all' || item.origin === origin;
                 const matchProcess = process === 'all' || item.process === process;
-                return matchSearch && matchCategory && matchProcess;
+                return matchSearch && matchCategory && matchOrigin && matchProcess;
             });
 
             renderMarkers(filtered);
             renderTable(filtered);
-            // Don't update general stats, maybe? Or update to reflect filter?
-            // document.getElementById('stat-total').innerText = filtered.length; 
         }
 
         function exportToCSV() {
-            const headers = ["ID", "Name", "City", "State", "Product", "Capacity", "Area", "Process", "Category"];
+            const headers = ["ID", "Name", "City", "State", "Product", "Capacity", "Process", "ProcessLabel", "Origin", "OriginLabel", "Type", "TypeLabel", "Details"];
             const rows = factoryData.map(item => [
-                item.id, item.name, item.city, item.state, `"${item.product}"`, `"${item.capacity}"`, `"${item.area}"`, item.process, item.category
+                item.id, item.name, item.city, item.state, `"${item.product}"`, `"${item.capacity}"`,
+                item.process, item.processLabel, item.origin, item.originLabel, item.type, item.typeLabel,
+                `"${item.details}"`
             ]);
 
             let csvContent = "data:text/csv;charset=utf-8," + headers.join(",") + "\n" + rows.map(e => e.join(",")).join("\n");
